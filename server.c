@@ -6,7 +6,7 @@
 #include<string.h>
 #include<pthread.h>
 
-#define PORT 6969
+#define PORT 22
 void *conn(void *args);
 char buffer[1024] = "";  
 int i = 0;  
@@ -34,7 +34,7 @@ void server(){
 
     if (bind(server_fd, (struct sockaddr*)&server, sizeof(server))<0){
             printf("\nBind failed\n");
-    }char buffer[1024] = "";
+    }
 
     if(listen(server_fd, 5)<0){
         printf("\nListen error\n");        

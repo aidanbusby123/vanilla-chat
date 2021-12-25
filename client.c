@@ -6,7 +6,7 @@
 #include<string.h>
 #include<pthread.h>
 
-#define PORT 6969
+#define PORT 22
 
 char addr[20];
 void *sendMsg(void *args);
