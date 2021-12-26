@@ -6,7 +6,7 @@
 #include<string.h>
 #include<pthread.h>
 
-#define PORT 80
+#define PORT 6969
 void *conn(void *args);
 char buffer[1024] = "";  
 int i = 0;  
