@@ -5,37 +5,54 @@
 #include<unistd.h>
 #include<string.h>
 #include<pthread.h>
+#include<stdlib.h>
+
+#include "../include/ErrorDebugMacros.h"
 
 #define PORT 6969
 
-char addr[20];
 void *sendMsg(void *args);
+
 void client(){
     int sock = 0;
     
     int read_size;
     struct sockaddr_in serv_addr;
     char buffer[1024] = "";
+
+    size_t buffsize = 20;
+    char *addr = NULL;
     
     char *hello = "Hello from client";
     (PORT);
     
     printf("\nEnter server IP: ");
-    scanf("%s",&addr);
+
+    if(!(addr = (char*)malloc(buffsize * sizeof(char)))){
+        ERROR("Error in allocating memory for the addr buffer!");
+        exit(EXIT_FAILURE);
+    }
+
+    getline(&addr, &buffsize, stdin);
+    addr[strcspn(addr, "\n")] = '\0';       //removes any newlines from buffer
+
     if ((sock = socket(AF_INET, SOCK_STREAM, 0))<0){
-        printf("\nSocket creation error\n");
+        ERROR("Socket creation error!\n");
         return;
         
     }
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
     if(inet_pton(AF_INET, addr, &serv_addr.sin_addr)<=0){
-        printf("\nInvalid address\n");
+        ERROR("\nInvalid address\n");
         return;
         
     }
+
+    free(addr);
+
     if(connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr))<0){
-        printf("\nConnection failed, please try again\n");
+        ERROR("\nConnection failed, please try again\n");
         return;
         
     }        
@@ -46,16 +63,11 @@ void client(){
             printf("%s", buffer);
             bzero(buffer, strlen(buffer));
         }
-       
-    
-  
-
 }
 void *sendMsg(void *args){
     int sock = *((int*)args);
     char message[1024] = "";
     while (1){
-        
         fgets(message, 1024, stdin);
         send(sock, message, strlen(message), 0);
         bzero(message, 1024);

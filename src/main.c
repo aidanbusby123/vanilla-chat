@@ -7,8 +7,6 @@
 #include"client.c"
 #include"server.c"
 
-
-
 char buf[64];
 int x = 0;
 int y = 0;
@@ -67,15 +65,12 @@ void *readFunc(){
         return NULL;
 }
 
-int main(){
-    
+int main(){    
     enableRawMode();
     printf("\033[2J");
     printf("\033[H");
     int i = 0;
-   
-    
-        
+        printf("(This program was last compiled at %s, at %s)\n\n", __DATE__, __TIME__);
         printf("\033[30;107mCONNECT TO SERVER\n");
         printf("\033[39;49mSTART SERVER\n");
        
