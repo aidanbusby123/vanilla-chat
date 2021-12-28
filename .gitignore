@@ -1,0 +1,10 @@
+#builds
+*.exe
+*.app
+*.out
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
