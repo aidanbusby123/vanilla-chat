@@ -1,21 +1,13 @@
-#include<stdio.h>
-#include<sys/socket.h>
-#include<arpa/inet.h>
-#include<netinet/in.h>
-#include<unistd.h>
-#include<string.h>
-#include<pthread.h>
+#include "server.h"
 
-#include "../include/ErrorDebugMacros.h"
-
-#define MAXCLIENTS 100
-#define PORT 6969
-int server_fd, new_socket;
 void conn();
-char buffer[1024] = "";  
-int i = 0;  
-int socklist[MAXCLIENTS];
+
 void server(){
+    int server_fd, new_socket;
+    char buffer[1024] = "";  
+    int i = 0;  
+    int socklist[MAXCLIENTS];
+
     int opt = 1;
     int read_size;
     

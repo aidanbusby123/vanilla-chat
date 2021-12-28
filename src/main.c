@@ -4,8 +4,8 @@
 #include<unistd.h>
 #include<termios.h>
 #include<pthread.h>
-#include"client.c"
-#include"server.c"
+#include"../include/client.h"
+#include"../include/server.h"
 
 char buf[64];
 int x = 0;
@@ -65,12 +65,14 @@ void *readFunc(){
         return NULL;
 }
 
-int main(){    
+int main(){
+    printf("This Program Was last Compiled on %s, at %s\n", __DATE__, __TIME__);   
+    sleep(2);
+
     enableRawMode();
     printf("\033[2J");
     printf("\033[H");
     int i = 0;
-        printf("(This program was last compiled at %s, at %s)\n\n", __DATE__, __TIME__);
         printf("\033[30;107mCONNECT TO SERVER\n");
         printf("\033[39;49mSTART SERVER\n");
        
