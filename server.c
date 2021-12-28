@@ -5,21 +5,24 @@
 #include<unistd.h>
 #include<string.h>
 #include<pthread.h>
-
+#define MAXCLIENTS 100
 #define PORT 6969
-void *conn(void *args);
+int server_fd, new_socket;
+void conn();
 char buffer[1024] = "";  
 int i = 0;  
-int socklist[5];
+int socklist[MAXCLIENTS];
 void server(){
 
-    int server_fd, new_socket;
+    
     int opt = 1;
     int read_size;
     
     char *hello = "Hello from server";
     struct sockaddr_in server;
     int addrlen = sizeof(server);
+
+    pid_t client_id;
 
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0))==0){
         printf("\nSocket creation error\n");
@@ -36,14 +39,24 @@ void server(){
             printf("\nBind failed\n");
     }
 
-    if(listen(server_fd, 5)<0){
+    if(listen(server_fd, MAXCLIENTS*2)<0){
         printf("\nListen error\n");        
     }
     while(new_socket = accept(server_fd, (struct sockaddr*)&server, (socklen_t*)&addrlen)){
         socklist[i] = new_socket;
+        if ((client_id = fork()) == 0){
+            while(recv(socklist[i], buffer, 1024, 0)>0){
+                printf("%s", buffer);
+                for (int q = 0; q < MAXCLIENTS; q++){
+                    send(socklist[q], buffer, strlen(buffer), 0);
+                }
+            
+            bzero(buffer, 1024);
+            
+            }
+        }
         printf("\nConnection accepted\n");
-        pthread_t thread_id;
-        pthread_create(&thread_id, NULL, conn, &new_socket);
+        
         i++;
        
 
@@ -60,22 +73,3 @@ void server(){
 
 }         
 
-void *conn(void *args){
-    int sock = *((int*)args);
-    
-
-        
-        while(recv(sock, buffer, 1024, 0)>0){
-            printf("%s", buffer);
-            for (int q = 0; q <= 5; q++){
-                send(socklist[q], buffer, strlen(buffer), 0);
-            }
-            
-            bzero(buffer, 1024);
-            
-        }
-       
-    
-   
-    printf("\nClient disconnected\n");
-}
