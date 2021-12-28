@@ -1,7 +1,7 @@
 IDIR=include/
 CC=gcc
 LIBS=-pthread
-SRC=src/main.c
+SRC=src/main.c include/server.c include/client.c
 BIN=bin
 
 GNUBLD=GNU_x86_64_0-0-1.out
