@@ -9,7 +9,7 @@
 #include<string.h>
 #include<pthread.h>
 
-#include "../include/ErrorDebugMacros.h"
+#include "ErrorDebugMacros.h"
 
 void server();
 

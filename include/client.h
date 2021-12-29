@@ -10,7 +10,7 @@
 #include<pthread.h>
 #include<stdlib.h>
 
-#include "../include/ErrorDebugMacros.h"
+#include "ErrorDebugMacros.h"
 
 #define PORT 6969
 
