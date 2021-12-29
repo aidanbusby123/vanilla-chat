@@ -5,15 +5,13 @@ void *sendMsg(void *args);
 void client(){
     int sock = 0;
     
-    int read_size;
     struct sockaddr_in serv_addr;
     char buffer[1024] = "";
 
     size_t buffsize = 20;
     char *addr = NULL;
     
-    char *hello = "Hello from client";
-    (PORT);
+    //(PORT); does not do anything???
     
     printf("\nEnter server IP: ");
 
