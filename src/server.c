@@ -28,13 +28,11 @@ void server(){
     int socklist[MAXCLIENTS];
 
     int opt = 1;
-    int read_size;
     
-    char *hello = "Hello from server";
     struct sockaddr_in server;
     int addrlen = sizeof(server);
 
-    pid_t client_id;
+    pid_t client_id = 0;
 
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0))==0){
         ERROR("\nSocket creation error\n");
@@ -44,6 +42,7 @@ void server(){
         ERROR("\nsetsockopt failed\n");
     }
     server.sin_family = AF_INET;
+    //DEBUG("AF_INET = %d\n", AF_INET); add debug statments later     
     server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(PORT);
 
@@ -54,7 +53,7 @@ void server(){
     if(listen(server_fd, MAXCLIENTS*2)<0){
         ERROR("\nListen error\n");        
     }
-    while(new_socket = accept(server_fd, (struct sockaddr*)&server, (socklen_t*)&addrlen)){
+    while((new_socket = accept(server_fd, (struct sockaddr*)&server, (socklen_t*)&addrlen))){
         socklist[i] = new_socket;
         if ((client_id = fork()) == 0){
             while(recv(socklist[i], buffer, 1024, 0)>0){
