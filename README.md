@@ -19,7 +19,9 @@ Build with GNU Make
 make mac
 ```
 # All
-Build with GNU Make
-```bash
-make all
+Build with Cmake
+```
+mkdir build
+cd build
+cmake ..
 ```
