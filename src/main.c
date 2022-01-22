@@ -23,16 +23,10 @@
 #include<unistd.h>
 #include<termios.h>
 #include<pthread.h>
-<<<<<<< HEAD
+
 #include"../include/ErrorDebugMacros.h"
 #include "../include/client.h"
 #include "../include/server.h"
-=======
-
-#include"../include/ErrorDebugMacros.h"
-#include"../include/client.h"
-#include"../include/server.h"
->>>>>>> e20aca43be3e4a5fe746ae1916436ff0cf5e71ce
 
 char buf[64];
 int x = 0;
