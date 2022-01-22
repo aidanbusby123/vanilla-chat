@@ -1,7 +1,6 @@
 #builds
-*.exe
-*.app
-*.out
+build
+releases
 
 # Object files
 *.o
